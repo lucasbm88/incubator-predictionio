@@ -436,7 +436,7 @@ object Engine1 {
   case class DSP(v: Double) extends Params
 }
 
-class Engine1 
+class Engine1
 extends BaseEngine[
   Engine1.EvalInfo, Engine1.Query, Engine1.Prediction, Engine1.Actual] {
 

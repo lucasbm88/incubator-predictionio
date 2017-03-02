@@ -18,11 +18,15 @@
 package org.apache.predictionio.workflow
 
 import org.apache.predictionio.controller._
-
-import org.scalatest.FunSuite
+import org.apache.predictionio.data.storage.{EnvironmentFactory, EnvironmentService, Storage}
+import org.apache.predictionio.workflow.util.ESEmbeddedServer
+import org.scalamock.scalatest.MockFactory
+import org.scalatest.{BeforeAndAfter, FunSuite}
 import org.scalatest.Matchers._
+import org.elasticsearch.node.Node
 
-class EvaluationWorkflowSuite extends FunSuite with SharedSparkContext {
+class EvaluationWorkflowSuite extends FunSuite with SharedEsContext
+  with SharedSparkContext with MockFactory {
 
   test("Evaluation return best engine params, simple result type: Double") {
     val engine = new Engine1()
