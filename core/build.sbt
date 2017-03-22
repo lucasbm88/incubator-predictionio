@@ -31,7 +31,8 @@ libraryDependencies ++= Seq(
   "org.slf4j"               % "slf4j-log4j12"    % "1.7.18",
   "org.scalatest"          %% "scalatest"        % "2.1.7" % "test",
   "org.specs2"             %% "specs2"           % "2.3.13" % "test",
-  "org.scalamock"          %% "scalamock-scalatest-support" % "3.5.0" % "test")
+  "org.scalamock"          %% "scalamock-scalatest-support" % "3.5.0" % "test",
+  "org.apache.predictionio"%% "apache-predictionio-data-elasticsearch1" % version.value % "test")
 
 parallelExecution in Test := false
 

@@ -101,12 +101,23 @@ val commonSettings = Seq(
   unmanagedClasspath in Test += conf,
   unmanagedClasspath in Test += baseDirectory.value.getParentFile / s"storage/jdbc/target/scala-${scalaBinaryVersion.value}/classes")
 
+<<<<<<< c4f6b19b59eab99bd02be1bf38f7c2fd7c9d2b3a
 val commonTestSettings = Seq(
   libraryDependencies ++= Seq(
     "org.postgresql"   % "postgresql"  % "9.4-1204-jdbc41" % "test",
     "org.scalikejdbc" %% "scalikejdbc" % "2.3.5" % "test"))
+=======
+val common = (project in file("common")).
+  settings(commonSettings: _*).
+  settings(genjavadocSettings: _*)
 
 val dataElasticsearch1 = (project in file("storage/elasticsearch1")).
+  settings(commonSettings: _*).
+  settings(genjavadocSettings: _*)
+>>>>>>> Testing merge
+
+val data = (project in file("data")).
+  dependsOn(common).
   settings(commonSettings: _*).
   enablePlugins(GenJavadocPlugin)
 
@@ -145,6 +156,7 @@ val data = (project in file("data")).
 
 val core = (project in file("core")).
   dependsOn(data).
+  //dependsOn(dataElasticsearch1).
   settings(commonSettings: _*).
   settings(commonTestSettings: _*).
   enablePlugins(GenJavadocPlugin).
