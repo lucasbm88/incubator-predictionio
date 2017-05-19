@@ -16,7 +16,6 @@
  */
 
 
-<<<<<<< c4f6b19b59eab99bd02be1bf38f7c2fd7c9d2b3a:core/src/main/scala/org/apache/predictionio/controller/Params.scala
 package org.apache.predictionio.controller
 
 /** Base trait for all kinds of parameters that will be passed to constructors
@@ -32,23 +31,4 @@ trait Params extends Serializable {}
   */
 case class EmptyParams() extends Params {
   override def toString(): String = "Empty"
-=======
-object PIOBuild extends Build {
-  val elasticsearchVersion = SettingKey[String](
-    "elasticsearch-version",
-    "The version of Elasticsearch used for building.")
-  val elasticsearchForTestsVersion = SettingKey[String](
-    "elasticsearch-test-version",
-    "The version of embedded Elasticsearch used for testing core."
-  )
-  val json4sVersion = SettingKey[String](
-    "json4s-version",
-    "The version of JSON4S used for building.")
-  val sparkVersion = SettingKey[String](
-    "spark-version",
-    "The version of Apache Spark used for building.")
-  val childrenPomExtra = SettingKey[scala.xml.NodeSeq](
-    "children-pom-extra",
-    "Extra POM data for children projects.")
->>>>>>> Testing merge:project/Build.scala
 }

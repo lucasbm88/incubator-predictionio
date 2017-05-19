@@ -101,23 +101,12 @@ val commonSettings = Seq(
   unmanagedClasspath in Test += conf,
   unmanagedClasspath in Test += baseDirectory.value.getParentFile / s"storage/jdbc/target/scala-${scalaBinaryVersion.value}/classes")
 
-<<<<<<< c4f6b19b59eab99bd02be1bf38f7c2fd7c9d2b3a
 val commonTestSettings = Seq(
   libraryDependencies ++= Seq(
     "org.postgresql"   % "postgresql"  % "9.4-1204-jdbc41" % "test",
     "org.scalikejdbc" %% "scalikejdbc" % "2.3.5" % "test"))
-=======
-val common = (project in file("common")).
-  settings(commonSettings: _*).
-  settings(genjavadocSettings: _*)
 
 val dataElasticsearch1 = (project in file("storage/elasticsearch1")).
-  settings(commonSettings: _*).
-  settings(genjavadocSettings: _*)
->>>>>>> Testing merge
-
-val data = (project in file("data")).
-  dependsOn(common).
   settings(commonSettings: _*).
   enablePlugins(GenJavadocPlugin)
 
@@ -156,7 +145,6 @@ val data = (project in file("data")).
 
 val core = (project in file("core")).
   dependsOn(data).
-  //dependsOn(dataElasticsearch1).
   settings(commonSettings: _*).
   settings(commonTestSettings: _*).
   enablePlugins(GenJavadocPlugin).
@@ -181,11 +169,11 @@ val e2 = (project in file("e2")).
 val dataEs = if (majorVersion(es) == 1) dataElasticsearch1 else dataElasticsearch
 
 val storageSubprojects = Seq(
-    dataEs,
-    dataHbase,
-    dataHdfs,
-    dataJdbc,
-    dataLocalfs)
+  dataEs,
+  dataHbase,
+  dataHdfs,
+  dataJdbc,
+  dataLocalfs)
 
 val storage = (project in file("storage"))
   .aggregate(storageSubprojects map Project.projectToRef: _*)
@@ -278,19 +266,19 @@ pomExtra := {
     <artifactId>apache</artifactId>
     <version>18</version>
   </parent>
-  <scm>
-    <connection>scm:git:github.com/apache/incubator-predictionio</connection>
-    <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/incubator-predictionio.git</developerConnection>
-    <url>github.com/apache/incubator-predictionio</url>
-  </scm>
-  <developers>
-    <developer>
-      <id>donald</id>
-      <name>Donald Szeto</name>
-      <url>http://predictionio.incubator.apache.org</url>
-      <email>donald@apache.org</email>
-    </developer>
-  </developers>
+    <scm>
+      <connection>scm:git:github.com/apache/incubator-predictionio</connection>
+      <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/incubator-predictionio.git</developerConnection>
+      <url>github.com/apache/incubator-predictionio</url>
+    </scm>
+    <developers>
+      <developer>
+        <id>donald</id>
+        <name>Donald Szeto</name>
+        <url>http://predictionio.incubator.apache.org</url>
+        <email>donald@apache.org</email>
+      </developer>
+    </developers>
 }
 
 childrenPomExtra in ThisBuild := {
