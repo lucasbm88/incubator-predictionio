@@ -169,11 +169,11 @@ val e2 = (project in file("e2")).
 val dataEs = if (majorVersion(es) == 1) dataElasticsearch1 else dataElasticsearch
 
 val storageSubprojects = Seq(
-  dataEs,
-  dataHbase,
-  dataHdfs,
-  dataJdbc,
-  dataLocalfs)
+    dataEs,
+    dataHbase,
+    dataHdfs,
+    dataJdbc,
+    dataLocalfs)
 
 val storage = (project in file("storage"))
   .aggregate(storageSubprojects map Project.projectToRef: _*)
@@ -266,19 +266,19 @@ pomExtra := {
     <artifactId>apache</artifactId>
     <version>18</version>
   </parent>
-    <scm>
-      <connection>scm:git:github.com/apache/incubator-predictionio</connection>
-      <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/incubator-predictionio.git</developerConnection>
-      <url>github.com/apache/incubator-predictionio</url>
-    </scm>
-    <developers>
-      <developer>
-        <id>donald</id>
-        <name>Donald Szeto</name>
-        <url>http://predictionio.incubator.apache.org</url>
-        <email>donald@apache.org</email>
-      </developer>
-    </developers>
+  <scm>
+    <connection>scm:git:github.com/apache/incubator-predictionio</connection>
+    <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/incubator-predictionio.git</developerConnection>
+    <url>github.com/apache/incubator-predictionio</url>
+  </scm>
+  <developers>
+    <developer>
+      <id>donald</id>
+      <name>Donald Szeto</name>
+      <url>http://predictionio.incubator.apache.org</url>
+      <email>donald@apache.org</email>
+    </developer>
+  </developers>
 }
 
 childrenPomExtra in ThisBuild := {
