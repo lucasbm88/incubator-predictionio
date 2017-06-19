@@ -32,7 +32,9 @@ libraryDependencies ++= Seq(
   "org.scalatest"          %% "scalatest"        % "2.1.7" % "test",
   "org.specs2"             %% "specs2"           % "2.3.13" % "test",
   "org.scalamock"          %% "scalamock-scalatest-support" % "3.5.0" % "test",
-  "org.apache.predictionio"%% "apache-predictionio-data-elasticsearch1" % version.value % "test")
+  "com.h2database"           % "h2"             % "1.4.196" % "test"
+//  "org.apache.predictionio"%% "apache-predictionio-test-common" % version.value % "test"
+)
 
 parallelExecution in Test := false
 

@@ -20,7 +20,6 @@ package org.apache.predictionio.workflow
 
 import _root_.io.netty.util.internal.logging.{InternalLoggerFactory, Slf4JLoggerFactory}
 import org.apache.predictionio.data.storage.{EnvironmentFactory, EnvironmentService}
-import org.apache.predictionio.workflow.util.ESEmbeddedServer
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.Suite
@@ -93,16 +92,14 @@ trait SharedSparkContext extends BeforeAndAfterAll { self: Suite =>
   }
 }
 
-trait SharedEsContext extends BeforeAndAfterAll { self: Suite =>
+trait SharedStorageContext extends BeforeAndAfterAll { self: Suite =>
 
   override def beforeAll(): Unit ={
-    ESEmbeddedServer.start
-    ConfigurationMockUtil.createESMockedConfig
+    ConfigurationMockUtil.createJDBCMockedConfig
     super.beforeAll()
   }
 
   override def afterAll(): Unit = {
-    ESEmbeddedServer.shutdown
     super.afterAll()
   }
 
@@ -110,32 +107,33 @@ trait SharedEsContext extends BeforeAndAfterAll { self: Suite =>
 
 object ConfigurationMockUtil extends MockFactory {
 
-  def createESMockedConfig: Unit = {
+  def createJDBCMockedConfig: Unit = {
     val mockedEnvService = mock[EnvironmentService]
     (mockedEnvService.envKeys _)
       .expects
       .returning(List("PIO_STORAGE_REPOSITORIES_METADATA_NAME",
-        "PIO_STORAGE_SOURCES_ELASTICSEARCH_TYPE"))
+        "PIO_STORAGE_SOURCES_MYSQL_TYPE"))
       .twice
 
     (mockedEnvService.getByKey _)
       .expects("PIO_STORAGE_REPOSITORIES_METADATA_NAME")
-      .returning("elasticsearch")
+      .returning("test_metadata")
 
     (mockedEnvService.getByKey _)
       .expects("PIO_STORAGE_REPOSITORIES_METADATA_SOURCE")
-      .returning("ELASTICSEARCH")
+      .returning("MYSQL")
 
     (mockedEnvService.getByKey _)
-      .expects("PIO_STORAGE_SOURCES_ELASTICSEARCH_TYPE")
-      .returning("elasticsearch")
+      .expects("PIO_STORAGE_SOURCES_MYSQL_TYPE")
+      .returning("jdbc")
 
     (mockedEnvService.filter _)
       .expects(*)
       .returning(Map(
-        "HOSTS" -> "localhost",
-        "PORTS" -> "9300",
-        "CLUSTERNAME" -> "elasticsearch"))
+        "URL" -> "jdbc:h2:~/test;MODE=MySQL;AUTO_SERVER=TRUE",
+        "USERNAME" -> "sa",
+        "PASSWORD" -> "")
+      )
 
     EnvironmentFactory.environmentService = new Some(mockedEnvService)
   }
