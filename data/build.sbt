@@ -28,7 +28,8 @@ libraryDependencies ++= Seq(
   "org.clapper"            %% "grizzled-slf4j" % "1.0.2",
   "org.json4s"             %% "json4s-native"  % json4sVersion.value,
   "org.scalatest"          %% "scalatest"      % "2.1.7" % "test",
-  "org.specs2"             %% "specs2"         % "3.3.1" % "test",
+  "org.specs2"             %% "specs2"         % "3.3.1" % "test"
+    exclude("org.scalaz.stream", "scalaz-stream_2.10"),
   "org.scalamock"          %% "scalamock-specs2-support" % "3.5.0" % "test",
   "com.h2database"           % "h2"             % "1.4.196" % "test")
 
