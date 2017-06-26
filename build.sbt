@@ -117,6 +117,10 @@ val dataHbase = (project in file("storage/hbase")).
   settings(commonSettings: _*).
   enablePlugins(GenJavadocPlugin)
 
+val dataCassandra = (project in file("storage/cassandra")).
+  settings(commonSettings: _*).
+  enablePlugins(GenJavadocPlugin)
+
 val dataHdfs = (project in file("storage/hdfs")).
   settings(commonSettings: _*).
   enablePlugins(GenJavadocPlugin)
